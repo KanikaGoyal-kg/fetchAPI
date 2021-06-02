@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p id="apiIndia"></p>
+        <script>
+            fetch('https://api.covid19api.com/summary').then((apiData) => {
+                // console.log(apiData);
+                return apiData.json();   //To convert into object from json format 
+            }).then( (actualData) => {
+                // console.log(actualData);
+                const myData = actualData.Countries[76];
+                document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
+            }).catch( (error) => {
+                console.log(`The Error: ${error}`);
+            })
+        </script>
+    </body>
+</html>
