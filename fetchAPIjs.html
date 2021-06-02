@@ -1,43 +1,95 @@
 <html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        <p id="apiIndia"></p>
-        <script>
-            fetch('https://api.covid19api.com/summary').then((apiData) => { //It has returned promise and to get that promise .then is used
-                // console.log(apiData);
-                return apiData.json();   //To convert into object from json format 
-            }).then( (actualData) => {
-                // console.log(actualData);
-                const myData = actualData.Countries[76];
-                document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
-            }).catch( (error) => {
-                console.log(`The Error: ${error}`);
-            });
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <p id="apiIndia"></p>
+    <script>
+      fetch("https://api.covid19api.com/summary")
+        .then((apiData) => {
+          //It has returned promise and to get that promise .then is used
+          // console.log(apiData);
+          return apiData.json(); //To convert into object from json format
+        })
+        .then((actualData) => {
+          // console.log(actualData);
+          const myData = actualData.Countries[76];
+          document.getElementById(
+            "apiIndia"
+          ).innerHTML = `My country name is ${myData.Country}`;
+        })
+        .catch((error) => {
+          console.log(`The Error: ${error}`);
+        });
 
-            // To get the data of whole countries with one call
+      // To get the data of whole countries with one call
 
-            const getCovidData = (indexs) => {
-                fetch('https://api.covid19api.com/summary').then((apiData) => { //It has returned promise and to get that promise .then is used
-                // console.log(apiData);
-                return apiData.json();   //To convert into object from json format 
-            }).then( (actualData) => {
-                // console.log(actualData);
-                const myData = actualData.Countries[`${indexs}`];
-                console.log(`My country name is ${myData.Country}`)
-                // document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
-            }).catch( (error) => {
-                console.log(`The Error: ${error}`);
-            });
+      const getCovidData = (indexs) => {
+        fetch("https://api.covid19api.com/summary")
+          .then((apiData) => {
+            //It has returned promise and to get that promise .then is used
+            // console.log(apiData);
+            return apiData.json(); //To convert into object from json format
+          })
+          .then((actualData) => {
+            // console.log(actualData);
+            const myData = actualData.Countries[`${indexs}`];
+            console.log(`My country name is ${myData.Country}`);
+            // document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
+          })
+          .catch((error) => {
+            console.log(`The Error: ${error}`);
+          });
+      };
 
-            }
+      getCovidData(25);
+      getCovidData(26);
+      getCovidData(76);
+      getCovidData(77);
 
-            getCovidData(25);
-            getCovidData(26);
-            getCovidData(76);
-            getCovidData(77);
+      //Fetch API with async and await
 
-        </script>
-    </body>
+      async function getCovidapi() {
+        const jsonData = await fetch("https://api.covid19api.com/summary");
+        const jsData = await jsonData.json();
+
+        const country_name = jsData.Countries[76];
+        console.log(`The name of my country is ${country_name.Country}`);
+      }
+      getCovidapi();
+
+      //Fetch API with async and await with error handeling
+
+      async function getCovidapi() {
+        try {
+          const jsonData = await fetch("https://api.covid19api.com/summary");
+          const jsData = await jsonData.json();
+
+          const country_name = jsData.Countries[76];
+          console.log(`The name of my country is ${country_name.Country}`);
+        } catch (error) {
+          console.log(`The Error: ${error}`);
+        }
+      }
+      getCovidapi();
+
+      //To get multiple data from fetch API with async and await with error handeling
+ 
+      async function getCovidapi(indexAPI) {
+        try {
+          const jsondata = await fetch("https://api.covid19api.com/summary");
+          const jsdata = await jsondata.json();
+
+          const country_name = jsdata.Countries[`${indexAPI}`];
+          console.log(`The name of my country is ${country_name.Country}`);
+        } catch (error) {
+          console.log(`The Error: ${error}`);
+        }
+      };
+      getCovidapi(76);
+      getCovidapi(77);
+      getCovidapi(78);
+     
+    </script>
+  </body>
 </html>
