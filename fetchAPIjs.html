@@ -5,7 +5,7 @@
     <body>
         <p id="apiIndia"></p>
         <script>
-            fetch('https://api.covid19api.com/summary').then((apiData) => {
+            fetch('https://api.covid19api.com/summary').then((apiData) => { //It has returned promise and to get that promise .then is used
                 // console.log(apiData);
                 return apiData.json();   //To convert into object from json format 
             }).then( (actualData) => {
@@ -14,7 +14,30 @@
                 document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
             }).catch( (error) => {
                 console.log(`The Error: ${error}`);
-            })
+            });
+
+            // To get the data of whole countries with one call
+
+            const getCovidData = (indexs) => {
+                fetch('https://api.covid19api.com/summary').then((apiData) => { //It has returned promise and to get that promise .then is used
+                // console.log(apiData);
+                return apiData.json();   //To convert into object from json format 
+            }).then( (actualData) => {
+                // console.log(actualData);
+                const myData = actualData.Countries[`${indexs}`];
+                console.log(`My country name is ${myData.Country}`)
+                // document.getElementById('apiIndia').innerHTML = `My country name is ${myData.Country}`
+            }).catch( (error) => {
+                console.log(`The Error: ${error}`);
+            });
+
+            }
+
+            getCovidData(25);
+            getCovidData(26);
+            getCovidData(76);
+            getCovidData(77);
+
         </script>
     </body>
 </html>
